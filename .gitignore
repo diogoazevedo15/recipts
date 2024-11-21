@@ -1,0 +1,20 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.env/
+venv/
+.virtualenv/
+
+# Poetry files
+poetry.lock
+
+# OS files
+.DS_Store
+
+# Streamlit files
+.streamlit/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
