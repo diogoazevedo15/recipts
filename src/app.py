@@ -2,16 +2,22 @@
 
 import streamlit as st
 from login import login
+from google_drive import main as google_drive_page
 
 def main_app():
-    st.title("Main Application")
-    st.write(f"Welcome to the main app, {st.session_state.get('username', '')}!")
+    # Sidebar
+    st.sidebar.title("Navigation")
+    page = st.sidebar.radio("Go to", ["Google Drive", "Local"])
 
-    # Logout button
-    if st.button("Logout"):
+    # Logout button in the sidebar
+    if st.sidebar.button("Logout"):
         st.session_state['logged_in'] = False
         st.session_state['username'] = ''
         st.rerun()
+
+    # Load the appropriate page/module
+    if page == "Google Drive":
+        google_drive_page.app()
 
 def main():
     if 'logged_in' not in st.session_state:
