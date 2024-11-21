@@ -8,8 +8,7 @@ import json
 def load_credentials():
     load_dotenv()
 
-    # Option 2: Using CREDENTIALS variable
-    credentials_str = os.getenv('CREDENTIALS') 
+    credentials_str = os.getenv('CREDENTIALS')
     credentials = json.loads(credentials_str)
     return credentials
 
