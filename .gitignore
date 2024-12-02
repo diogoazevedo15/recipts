@@ -10,9 +10,6 @@ venv/
 # Environment files
 .env
 
-# Poetry files
-poetry.lock
-
 # OS files
 .DS_Store
 
