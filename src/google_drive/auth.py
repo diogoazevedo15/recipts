@@ -1,5 +1,3 @@
-# google_drive/auth.py
-
 import streamlit as st
 from google.oauth2 import service_account
 from dotenv import load_dotenv
@@ -11,14 +9,14 @@ def authenticate():
     load_dotenv()
 
     # Get the service account JSON string from the environment variable
-    service_account = os.getenv('SERVICE_ACCOUNT')
+    service_account_raw = os.getenv('SERVICE_ACCOUNT')
 
     if not service_account:
         st.error('Service account key not found in environment variables.')
         return None
 
     try:
-        service_account_json = json.loads(service_account)
+        service_account_json = json.loads(service_account_raw)
         
     except json.JSONDecodeError as e:
         st.error(f'Failed to parse service account key JSON: {e}')

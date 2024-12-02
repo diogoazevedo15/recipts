@@ -1,5 +1,3 @@
-# google_drive/google_drive.py
-
 import streamlit as st
 from . import input_link
 from . import auth
@@ -14,8 +12,8 @@ def app():
         st.session_state['credentials'] = None
     if 'folder_id' not in st.session_state:
         st.session_state['folder_id'] = None
-    if 'image_files' not in st.session_state:
-        st.session_state['image_files'] = None
+    if 'files' not in st.session_state:
+        st.session_state['files'] = None
     if 'edited_df' not in st.session_state:
         st.session_state['edited_df'] = None
     if 'folder_link' not in st.session_state:
@@ -29,7 +27,7 @@ def app():
     # Check if the connect button is pressed
     if connect_button and folder_link:
         # Reset session state variables
-        for key in ['credentials', 'folder_id', 'image_files', 'edited_df']:
+        for key in ['credentials', 'folder_id', 'files', 'edited_df']:
             if key in st.session_state:
                 del st.session_state[key]
         st.session_state['folder_link'] = folder_link
@@ -58,23 +56,23 @@ def app():
                 st.error("Invalid folder link. Please make sure you have entered the correct link.")
                 st.stop()
 
-        # If image_files are not loaded, list images
-        if st.session_state['image_files'] is None:
-            image_files = file_handler.list_images(st.session_state['credentials'], st.session_state['folder_id'])
-            if image_files:
-                st.session_state['image_files'] = image_files
+        # If files are not loaded, list files
+        if st.session_state['files'] is None:
+            files = file_handler.list_files(st.session_state['credentials'], st.session_state['folder_id'])
+            if files:
+                st.session_state['files'] = files
                 # Set the flag to show the toast notification
                 st.session_state['show_toast'] = True
-                st.session_state['toast_message'] = f"Found {len(image_files)} image(s) in the folder."
+                st.session_state['toast_message'] = f"Found {len(files)} file(s) in the folder."
             else:
-                st.warning("No images found in the folder.")
+                st.warning("No files found in the folder.")
                 st.stop()
     else:
         st.info("Please enter a Google Drive folder link and click Connect.")
 
-    # Display the table if image_files are available
-    if st.session_state['image_files'] is not None:
-        edited_df = display_table.display_table(st.session_state['image_files'])
+    # Display the table if files are available
+    if st.session_state['files'] is not None:
+        edited_df = display_table.display_table(st.session_state['files'])
         st.session_state['edited_df'] = edited_df
 
     # Display the toast notification if the flag is set
@@ -83,4 +81,3 @@ def app():
             st.session_state.get('toast_message', ''),
             icon="✅"
         )
-      
