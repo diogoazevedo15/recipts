@@ -1,5 +1,3 @@
-# google_drive/input_link.py
-
 import streamlit as st
 
 def input_link():
