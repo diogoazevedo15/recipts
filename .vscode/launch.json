@@ -6,7 +6,7 @@
             "type": "debugpy",
             "request": "launch",
             "module": "streamlit",
-            "args": ["run", "src/app.py"],
+            "args": ["run", "pages/app.py"],
             "console": "integratedTerminal"
         }
     ]

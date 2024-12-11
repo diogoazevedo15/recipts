@@ -11,19 +11,22 @@ def authenticate():
     # Get the service account JSON string from the environment variable
     service_account_raw = os.getenv('SERVICE_ACCOUNT')
 
-    if not service_account:
+    if not service_account_raw:
         st.error('Service account key not found in environment variables.')
         return None
 
     try:
         service_account_json = json.loads(service_account_raw)
-        
     except json.JSONDecodeError as e:
         st.error(f'Failed to parse service account key JSON: {e}')
         return None
 
-    # Create credentials using the service account info
-    SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+    # Include scopes for both Drive and Vision APIs
+    SCOPES = [
+        'https://www.googleapis.com/auth/drive.readonly',
+        'https://www.googleapis.com/auth/cloud-platform'
+    ]
+
     try:
         credentials = service_account.Credentials.from_service_account_info(
             service_account_json, scopes=SCOPES)
